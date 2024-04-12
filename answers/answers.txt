@@ -35,16 +35,20 @@ SELECT types.name, COUNT(pokemons.primary_type) AS EachType FROM pokemons LEFT J
 
 
 6.) How many pokemon at level 100 does each trainer with at least one level 100 pokemon have? (Hint: your query should not display a trainer
-
+SELECT trainerID, COUNT(*) FROM pokemon_trainer WHERE pokelevel = 100 GROUP BY trainerID;
 
 
 
 7.) How many pokemon only belong to one trainer and no other?
 
-SELECT trainers.trainername AS Trainers_Name,pokemons.name AS Pokemon_Name FROM trainers JOIN pokemons ON pokemons.id = trainers.trainerID WHERE pokemons.id = 303;
 
-SELECT pokemons.name, COUNT(trainers.trainer) AS EachType FROM pokemons LEFT JOIN types ON pokemons.primary_type = types.id GROUP BY types.name;
-
+SELECT COUNT(pokemon_id)
+FROM pokemon_trainer
+WHERE pokemon_id IN (
+   SELECT pokemon_id
+   FROM pokemon_trainer
+   GROUP BY pokemon_id
+   HAVING COUNT(DISTINCT trainerID) = 1);
 
 
 ----------------------------------------------------------------------------------------
