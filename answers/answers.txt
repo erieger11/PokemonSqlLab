@@ -18,37 +18,43 @@ SELECT secondary_type FROM pokemons WHERE secondary_type IS NOT NULL;
 PART 3
 
 1.) What is each pokemon's primary type?
-SELECT pokemons.name, types.name FROM pokemons JOIN types ON pokemons.primary_type = types.id;
+SELECT pokemons.name, types.name
+FROM pokemons JOIN types
+ON pokemons.primary_type = types.id;
 
 2.) What is Rufflet's secondary type?
-SELECT pokemons.name, types.name FROM pokemons JOIN types ON pokemons.Seconadry_type = types.id WHERE pokemons.name = 'Rufflet';
+SELECT pokemons.name, types.name
+FROM pokemons JOIN types
+ON pokemons.Seconadry_type = types.id WHERE pokemons.name = 'Rufflet';
 
 3.) What are the names of the pokemon that belong to the trainer with trainerID 303?
-SELECT trainers.trainername AS Trainers_Name,pokemons.name AS Pokemon_Name FROM trainers JOIN pokemons ON pokemons.id = trainers.trainerID WHERE pokemons.id = 303;
+SELECT trainers.trainername AS Trainers_Name,pokemons.name AS Pokemon_Name
+FROM trainers JOIN pokemons
+ON pokemons.id = trainers.trainerID WHERE pokemons.id = 303;
 
 4.) How many pokemon have a secondary type Poison
-SELECT types.name, COUNT(pokemons.secondary_type) AS EachType FROM pokemons LEFT JOIN types ON pokemons.secondary_type = types.id GROUP BY types.name;
+SELECT types.name, COUNT(pokemons.secondary_type) AS EachType
+FROM pokemons LEFT JOIN types
+ON pokemons.secondary_type = types.id GROUP BY types.name;
 
 5.) What are all the primary types and how many pokemon have that type?
-SELECT types.name, COUNT(pokemons.primary_type) AS EachType FROM pokemons LEFT JOIN types ON pokemons.primary_type = types.id GROUP BY types.name;
-
-
+SELECT types.name, COUNT(pokemons.primary_type) AS EachType
+FROM pokemons LEFT JOIN types
+ON pokemons.primary_type = types.id GROUP BY types.name;
 
 6.) How many pokemon at level 100 does each trainer with at least one level 100 pokemon have? (Hint: your query should not display a trainer
-SELECT trainerID, COUNT(*) FROM pokemon_trainer WHERE pokelevel = 100 GROUP BY trainerID;
-
-
+SELECT trainerID, COUNT(*)
+FROM pokemon_trainer
+WHERE pokelevel = 100 GROUP BY trainerID;
 
 7.) How many pokemon only belong to one trainer and no other?
-
-
 SELECT COUNT(pokemon_id)
 FROM pokemon_trainer
 WHERE pokemon_id IN (
-   SELECT pokemon_id
-   FROM pokemon_trainer
-   GROUP BY pokemon_id
-   HAVING COUNT(DISTINCT trainerID) = 1);
+SELECT pokemon_id
+FROM pokemon_trainer
+GROUP BY pokemon_id
+HAVING COUNT(DISTINCT trainerID) = 1);
 
 
 ----------------------------------------------------------------------------------------
@@ -59,6 +65,23 @@ Pokemon Name	  |    Trainer Name	     |       Level	      |     Primary Type	 | 
 --------------------------------------------------------------------------------------------------------
 Pokemon's name	  |   Trainer's name	 |    Current Level	  |   Primary Type Name	 |  Secondary Type Name
 
-Sort the data by finding out which trainer has the strongest pokemon so that this will act as a ranking of strongest to weakest trainer. You may interpret strongest in whatever way you want, but you will have to explain your decision.
+Sort the data by finding out which trainer has the strongest pokemon so that this will act as a ranking of strongest to weakest trainer.
+You may interpret strongest in whatever way you want, but you will have to explain your decision.
 
 
+SELECT p.name AS pokemon_name, t1.name AS primary_type, t2.name AS secondary_type FROM pokemons p JOIN types t1 ON p.primary_type = t1.id JOIN types t2 ON p.secondary_type = t2.id;
+
+
+
+
+
+
+SELECT trainers.trainername AS Trainers_Name,pokemons.name AS Pokemon_Name
+FROM trainers JOIN pokemons
+ON pokemons.id = trainers.trainerID WHERE pokemons.id = 303;
+
+
+-----COMBINE THESE TWO-----
+SELECT trainerID, COUNT(*)
+FROM pokemon_trainer
+WHERE pokelevel = 100 GROUP BY trainerID;
