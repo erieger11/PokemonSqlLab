@@ -69,19 +69,13 @@ Sort the data by finding out which trainer has the strongest pokemon so that thi
 You may interpret strongest in whatever way you want, but you will have to explain your decision.
 
 
-SELECT p.name AS pokemon_name, t1.name AS primary_type, t2.name AS secondary_type FROM pokemons p JOIN types t1 ON p.primary_type = t1.id JOIN types t2 ON p.secondary_type = t2.id;
-
-
-
-
-
-
-SELECT trainers.trainername AS Trainers_Name,pokemons.name AS Pokemon_Name
-FROM trainers JOIN pokemons
-ON pokemons.id = trainers.trainerID WHERE pokemons.id = 303;
-
-
------COMBINE THESE TWO-----
-SELECT trainerID, COUNT(*)
+SELECT pokemons.name AS "Pokemon's name",  trainers.trainername AS "Trainer's name",  pokemon_trainer.pokelevel AS "Current Level", pt.name AS "Primary Type Name", st.name AS "Secondary Type Name"
 FROM pokemon_trainer
-WHERE pokelevel = 100 GROUP BY trainerID;
+JOIN trainers ON trainers.trainerID = pokemon_trainer.trainerID
+JOIN pokemons ON pokemon_trainer.pokemon_id = pokemons.id
+JOIN types AS pt ON pokemons.primary_type = pt.id
+JOIN types AS st ON pokemons.secondary_type = st.id
+ORDER BY pokemon_trainer.pokelevel DESC limit 1000;
+
+
+I believe Hunter♂ Kolot  is the strongest because they have a Tyranitar and to me they're a really powerful pokemon!
